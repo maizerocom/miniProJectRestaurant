@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    p{
+        margin: 10px;
+    }
+    a#top{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    div#bg{
+        background-color: #dbe2e2;
+    }
+</style>
+<div class="container">
+    <h1>Welcome To KMITL Restaurants</h1>
+    <br /><br />
+    <form class="form-inline" method="GET" action="{% url 'index' %}">
+        <div class="form-group">
+            <label for="inputSearch">ชื่อร้านอาหาร >> </label>
+            <input type="text" class="form-control ml-3" id="inputSearch" name="inputSearch" placeholder="ค้นหาร้าน"
+                value="{{search_txt}}">
+        </div>
+        <button type="submit" class="btn btn-primary ml-3">ค้นหา</button>
+    </form>
+    <br /><br />
+    <div class="container">
+        {% for fa in faculty %}
+        <u><h2>{{ fa.name }}</h2></u><br>
+        <div class="row">
+            {% for cl in classes %}
+            {% if fa == cl.faculty %}
+            <div class="col-3" id='bg'>
+                <p class="font-weight-bolder">{{ cl.name }}</p>
+                <img src="{{ cl.picture.url }}" width="200" height="140">
+                <a class="btn btn-info" id='top' href="{% url 'resf_list' res_id=cl.id %}" role="button">รายละเอียด</a>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <br><br><br><br><br><br><br><br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
